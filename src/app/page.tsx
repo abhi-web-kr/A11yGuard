@@ -1,65 +1,133 @@
-import Image from "next/image";
+"use client";
+
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    const router = useRouter();
+
+    return (
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+            {/* Hero Section */}
+            <section className="bg-[#1e2939] dark:bg-gray-800 text-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+                    <div className="text-center">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                            Welcome to A11yGuard
+                        </h1>
+                        <p className="text-xl md:text-2xl mb-8 text-blue-100 dark:text-blue-200">
+                            Your solution for modern web accessibility scanning
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button
+                                className="bg-white text-black dark:bg-white dark:text-slate-900 px-8 py-3 rounded-2xl font-semibold hover:bg-emerald-600 dark:hover:bg-emerald-500 hover:-translate-y-1 transition-all shadow-xl cursor-pointer hover:text-white"
+                                onClick={() => router.push("/scan")}
+                            >
+                                Get Started
+                            </button>
+                            <button
+                                className="text-white border-slate-900 bg-black dark:border-white dark:text-white px-8 py-3 rounded-2xl font-semibold hover:text-white hover:bg-emerald-600 dark:hover:bg-emerald-600 dark:hover:text-slate-900 hover:-translate-y-1 transition-all shadow-xl cursor-pointer"
+                                onClick={() => router.push("/about")}
+                            >
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Features Section */}
+            <section className="py-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                            Why Choose Us?
+                        </h2>
+                        <p className="text-xl text-gray-600 dark:text-gray-300">
+                            Powerful features to help you succeed
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {/* Feature 1 */}
+                        <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                            <div className="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                                <svg
+                                    className="w-8 h-8 text-black dark:text-blue-300"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                                    />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                                Fast & Reliable
+                            </h3>
+                            <p className="text-gray-600 dark:text-gray-300">
+                                Lightning-fast performance with 99.9% uptime
+                                guarantee for all your needs.
+                            </p>
+                        </div>
+
+                        {/* Feature 2 */}
+                        <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                            <div className="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                                <svg
+                                    className="w-8 h-8 text-black dark:text-blue-300"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                    />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                                Secure
+                            </h3>
+                            <p className="text-gray-600 dark:text-gray-300">
+                                Enterprise-grade security to protect your data
+                                and ensure privacy.
+                            </p>
+                        </div>
+
+                        {/* Feature 3 */}
+                        <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                            <div className="bg-blue-100 dark:bg-blue-900 w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                                <svg
+                                    className="w-8 h-8 text-black dark:text-blue-300"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                                    />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                                Easy to Use
+                            </h3>
+                            <p className="text-gray-600 dark:text-gray-300">
+                                Intuitive interface designed for both beginners
+                                and experts.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    );
 }
