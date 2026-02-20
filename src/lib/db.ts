@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const mongodbUrl = process.env.MONGODB_URI;
 
 if (!mongodbUrl) {
-    throw new Error("MONGODB_URI is not defined in .env.local");
+    throw new Error("MONGODB_URI is not found");
 }
 
 

@@ -11,17 +11,7 @@ const open_Sans = Open_Sans({
 
 export const metadata: Metadata = {
     title: "A11yGuard",
-    description: "Web Accessibility Auditing Tool",
-    icons: {
-        icon: [
-            {
-                url: "/favicon.svg",
-                type: "image/svg+xml",
-            },
-        ],
-        shortcut: "/favicon.svg",
-        apple: "/favicon.svg",
-    },
+    description: "Web Accessibility Auditing Tool"
 };
 
 export default function RootLayout({
