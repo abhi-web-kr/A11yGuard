@@ -20,7 +20,8 @@ async function scanWebsite(url: string) {
         await page.goto(url, { waitUntil: "networkidle2" });
 
         // 4. Run the Axe Expert Engine inside the page
-        const results = await new AxePuppeteer(page).analyze();
+        type AxeTarget = ConstructorParameters<typeof AxePuppeteer>[0];
+        const results = await new AxePuppeteer(page as unknown as AxeTarget).analyze();
 
         // 5. Transform Axe's complex results into your simple format
         const issues = results.violations.map((v) => ({

@@ -1,9 +1,6 @@
 import puppeteer from "puppeteer-core";
 
-/**
- * Connects to Browserless.io instead of launching a local browser
- * This allows Puppeteer to work on serverless platforms like Vercel
- */
+
 export async function getBrowserlessConnection() {
     const BROWSERLESS_TOKEN = process.env.BROWSERLESS_TOKEN;
 
