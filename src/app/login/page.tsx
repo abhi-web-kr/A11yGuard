@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { ShieldCheck, Mail, Lock, LogIn } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-function Login() {
+function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -14,7 +14,9 @@ function Login() {
 
     const router = useRouter();
     const searchParams = useSearchParams();
+    // console.log(searchParams);
     const callbackUrl = searchParams.get("callbackUrl") || "/";
+    console.log(callbackUrl);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -158,5 +160,11 @@ function Login() {
         </div>
     );
 }
+
+const Login = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <LoginForm />
+    </Suspense>
+);
 
 export default Login;

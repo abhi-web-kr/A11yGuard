@@ -2,11 +2,17 @@
 
 import { ScanUser } from "@/types/scan";
 import axios from "axios";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 
 interface userContextType {
     user: ScanUser | null;
-    getUser: () => Promise<void> | null;
+    getUser: () => void;
     loading: boolean;
 }
 
@@ -25,23 +31,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             if (!result) {
                 return new Error("user not fount");
             }
-            
             setUser(result.data);
-            // console.log("userCOntext -> ", user);
             setLoading(false);
         } catch (error) {
             setLoading(false);
             console.log(error);
         }
     };
+
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         getUser();
     }, []);
 
     const value = {
         user,
         getUser,
-        loading
+        loading,
     };
 
     return (

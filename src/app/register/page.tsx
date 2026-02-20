@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { ShieldCheck, User, Mail, Lock, ArrowRight } from "lucide-react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-function Register() {
+function RegisterForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,6 +29,7 @@ function Register() {
                     ? `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`
                     : "/login";
             router.push(loginUrl);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(
                 err.response?.data?.message ||
@@ -179,5 +180,11 @@ function Register() {
         </div>
     );
 }
+
+const Register = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <RegisterForm />
+    </Suspense>
+);
 
 export default Register;

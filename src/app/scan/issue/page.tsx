@@ -154,7 +154,7 @@ const DetailedIssuesPage = () => {
                                     <a
                                         href={getLinkFromText(
                                             issue.remediation,
-                                        )}
+                                        ) as string}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-bold transition-colors"
