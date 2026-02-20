@@ -10,8 +10,17 @@ async function scanWebsite(url: string) {
     try {
         // 1. Launch a real headless browser
         browser = await puppeteer.launch({
+            // Render standard chrome path
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--no-zygote",
+                "--single-process",
+            ],
             headless: true,
-            args: ["--no-sandbox", "--disable-setuid-sandbox"],
         });
 
         const page = await browser.newPage();
