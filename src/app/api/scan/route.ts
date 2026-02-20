@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer";
 import { AxePuppeteer } from "@axe-core/puppeteer";
+import { getBrowserlessConnection } from "@/lib/browserless";
 
 // Helper function to generate unique IDs
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -8,20 +8,8 @@ const generateId = () => Math.random().toString(36).substr(2, 9);
 async function scanWebsite(url: string) {
     let browser;
     try {
-        // 1. Launch a real headless browser
-        browser = await puppeteer.launch({
-            // Render standard chrome path
-            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-            args: [
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--no-zygote",
-                "--single-process",
-            ],
-            headless: true,
-        });
+        // 1. Connect to Browserless.io remote browser (serverless-friendly)
+        browser = await getBrowserlessConnection();
 
         const page = await browser.newPage();
 

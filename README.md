@@ -7,6 +7,95 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
 
+---
+
+## 📚 What I Learned Building This Project
+
+This project taught me valuable skills in full-stack web development:
+
+### **Backend & APIs**
+
+- ✅ Building RESTful APIs with Next.js 15 App Router
+- ✅ Server-side authentication with NextAuth.js (Credentials + OAuth)
+- ✅ MongoDB integration with Mongoose ODM
+- ✅ File uploads to cloud storage (Cloudinary)
+- ✅ API error handling and validation
+- ✅ Environment variable management for security
+
+### **Frontend & UI/UX**
+
+- ✅ React Server Components (RSC) and Client Components
+- ✅ TypeScript for type-safe development
+- ✅ TailwindCSS for responsive design
+- ✅ Dark mode implementation with next-themes
+- ✅ Context API for global state management
+- ✅ Protected routes with middleware
+
+### **Web Accessibility**
+
+- ✅ Running accessibility audits with Axe-core
+- ✅ Understanding WCAG compliance levels
+- ✅ Parsing and displaying accessibility violations
+- ✅ Identifying critical vs. minor issues
+
+### **DevOps & Deployment**
+
+- ✅ Serverless deployment considerations (Vercel)
+- ✅ Working with remote browser services (Browserless.io)
+- ✅ Environment-specific configurations
+- ✅ Understanding serverless vs. traditional hosting (Render, Railway)
+- ✅ Managing API keys and secrets securely
+
+### **Tools & Libraries**
+
+- ✅ Puppeteer for browser automation
+- ✅ Axe-core for accessibility testing
+- ✅ NextAuth for authentication
+- ✅ Hot Toast for notifications
+- ✅ Git version control
+
+---
+
+## 🎯 Next Features to Implement
+
+### **High Priority**
+
+- [ ] **Save Scan Results to Database** - Store scan history in MongoDB with user association
+- [ ] **Scan History Page** - Display all previous scans with filters and search
+- [ ] **Export Reports as PDF** - Allow users to download detailed PDF reports
+- [ ] **Issue Tracking Dashboard** - Track issues over time with charts and trends
+- [ ] **Email Notifications** - Send scan completion notifications via email
+
+### **Medium Priority**
+
+- [ ] **Scheduled Scans** - Set up automated recurring scans for websites
+- [ ] **Comparative Analytics** - Show improvements/regressions between scans
+- [ ] **Issue Categories** - Group issues by category (Images, Forms, Navigation, etc.)
+- [ ] **Remediation Guides** - Detailed step-by-step fixes for each issue type
+- [ ] **Team Collaboration** - Share scans with team members
+- [ ] **API Rate Limiting** - Implement rate limiting to prevent abuse
+
+### **Nice to Have**
+
+- [ ] **Lighthouse Integration** - Add performance, SEO, and best practices scores
+- [ ] **Custom Rules** - Allow users to define custom accessibility rules
+- [ ] **Browser Extensions** - Chrome/Firefox extensions for quick scans
+- [ ] **Webhooks** - Trigger scans via webhooks for CI/CD integration
+- [ ] **Multi-page Scanning** - Scan entire websites (all pages)
+- [ ] **Screenshot Annotations** - Highlight issues directly on screenshots
+- [ ] **Public Scan Results** - Share scan results via public links
+
+### **Technical Improvements**
+
+- [ ] **Caching Strategy** - Cache scan results to reduce API calls
+- [ ] **Queue System** - Background job queue for long-running scans
+- [ ] **WebSocket Updates** - Real-time scan progress updates
+- [ ] **Test Coverage** - Unit and integration tests
+- [ ] **Database Indexing** - Optimize MongoDB queries with proper indexes
+- [ ] **Error Monitoring** - Integrate Sentry or similar for error tracking
+
+---
+
 ## ✨ Features
 
 - 🔍 **Website Accessibility Scanning** - Scan any public website for accessibility issues
@@ -26,6 +115,8 @@
 - **Database:** [MongoDB](https://www.mongodb.com/) with Mongoose
 - **Authentication:** [NextAuth.js v5](https://next-auth.js.org/)
 - **File Upload:** [Cloudinary](https://cloudinary.com/)
+- **Accessibility Engine:** [Axe-core](https://github.com/dequelabs/axe-core)
+- **Headless Browser:** [Browserless.io](https://browserless.io/) (serverless Puppeteer)
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **HTTP Client:** [Axios](https://axios-http.com/)
 
@@ -78,7 +169,12 @@
     CLOUDINARY_CLOUD_NAME=your_cloud_name
     CLOUDINARY_API_KEY=your_api_key
     CLOUDINARY_API_SECRET=your_api_secret
+
+    # Browserless.io (for accessibility scanning)
+    BROWSERLESS_TOKEN=your_browserless_token
     ```
+
+    > Get your Browserless token at [browserless.io](https://browserless.io)
 
 4. **Run the development server**
 
@@ -90,7 +186,27 @@
 
     Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 🔐 Authentication Flow
+## � Deployment
+
+A11yGuard is optimized for **Vercel** deployment with **Browserless.io** for serverless accessibility scanning.
+
+### Quick Deploy to Vercel
+
+1. **Get a Browserless.io token** at [browserless.io](https://browserless.io) (free tier available)
+2. **Push your code to GitHub**
+3. **Import to Vercel** and add environment variables
+4. **Deploy!** Your app will be live globally in minutes
+
+📖 **[Full Deployment Guide →](./VERCEL_DEPLOYMENT.md)**
+
+### Performance
+
+- ⚡ **2-5 second** scan completion
+- 🌍 **Global edge network** for fast loading worldwide
+- ♾️ **No cold starts** - instant response
+- 🚀 **Unlimited concurrent** requests
+
+## �🔐 Authentication Flow
 
 A11yGuard uses NextAuth.js with two authentication providers:
 
@@ -207,16 +323,15 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-
 ## 🐛 Known Issues
 
 - Scan history not yet implemented
-- Real accessibility scanning API integration pending
 - Email verification not implemented
 
 ## 🚧 Roadmap
 
-- [ ] Integrate real accessibility scanning API (Axe, Pa11y, etc.)
+- [x] Integrate real accessibility scanning API (Axe-core + Browserless.io)
+- [x] Deploy-ready for Vercel with serverless architecture
 - [ ] Implement scan history with database storage
 - [ ] Add email verification for new accounts
 - [ ] Export reports as PDF
