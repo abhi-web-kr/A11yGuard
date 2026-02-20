@@ -25,6 +25,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     const getUser = async () => {
+        const token = document.cookie.includes("token"); // or check localStorage/sessionStorage
+
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
         setLoading(true);
         try {
             const result = await axios.get("/api/user");

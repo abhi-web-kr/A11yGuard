@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Mail, MessageSquare, MapPin, Send, Phone, Github } from "lucide-react";
+import { Mail, MapPin, Send, Github } from "lucide-react";
 
 export default function ContactPage() {
     const [status, setStatus] = useState<string | null>(null);
@@ -8,7 +8,7 @@ export default function ContactPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setStatus("sending");
-        // Yahan tum apna backend logic (like EmailJS or a custom API) add kar sakte ho
+        // Yahan apna backend logic (like EmailJS or a custom API) add kar sakte hai
         setTimeout(() => setStatus("success"), 2000);
     };
 

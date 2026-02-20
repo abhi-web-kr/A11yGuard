@@ -14,9 +14,7 @@ function LoginForm() {
 
     const router = useRouter();
     const searchParams = useSearchParams();
-    // console.log(searchParams);
     const callbackUrl = searchParams.get("callbackUrl") || "/";
-    console.log(callbackUrl);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

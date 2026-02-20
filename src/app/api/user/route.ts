@@ -23,7 +23,6 @@ export async function GET() {
                 { status: 400 },
             );
         }
-
         return NextResponse.json(user, { status: 200 });
         
     } catch (error) {

@@ -4,7 +4,7 @@ import { Loader2, Search, ShieldCheck, Zap } from "lucide-react";
 const LoadingPage = () => {
     const [status, setStatus] = useState("Initializing Scanner...");
 
-    // Messages jo thodi-thodi der mein change honge
+    
     const messages = [
         "Opening Headless Browser...",
         "Navigating to the URL...",
@@ -19,12 +19,12 @@ const LoadingPage = () => {
         const interval = setInterval(() => {
             setStatus(messages[i % messages.length]);
             i++;
-        }, 1500); // Har 1.5 seconds mein text change hoga
+        }, 1500); 
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[400px] p-10 bg-white dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-700 shadow-xl">
+        <div className="flex flex-col items-center justify-center min-h-100 p-10 bg-white dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-700 shadow-xl">
             {/* Animated Icon Group */}
             <div className="relative mb-8">
                 <div className="absolute inset-0 rounded-full bg-blue-100 dark:bg-blue-900 animate-ping opacity-25"></div>

@@ -11,8 +11,6 @@ const ScanPage = () => {
 
     const { result, loading, handleWebsiteLink } =
         useIssues();
-    // console.log(error)
-    // console.log(result)
 
     const handleScan = async (e: React.FormEvent) => {
         e.preventDefault();

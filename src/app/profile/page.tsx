@@ -68,7 +68,6 @@ export default function ProfilePage() {
     useEffect(() => {
         getUser();
     }, []);
-    // console.log(user?.image);
 
     const displayName = user?.name || session?.user?.name || "User Name";
     const displayEmail =

@@ -17,8 +17,6 @@ function Navbar() {
 
     const { data, status } = useSession();
     const { user } = useUser();
-    // console.log("navbar user ->", user);
-    // console.log("navbar status ->", status);
 
     const navLinks = [
         { name: "Home", href: "/" },

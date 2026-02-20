@@ -19,7 +19,7 @@ interface IssueContextType {
     resetScan: () => void;
 }
 
-const IssueContext = createContext<IssueContextType | undefined> (undefined);
+const IssueContext = createContext<IssueContextType | undefined>(undefined);
 
 export const IssueProvider = ({ children }: { children: ReactNode }) => {
     const [result, setResult] = useState<ScanResult | null>(null);
@@ -33,6 +33,7 @@ export const IssueProvider = ({ children }: { children: ReactNode }) => {
             const result = await axios.post("/api/scan", { url });
             setLoading(false);
             setResult(result.data);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             setError(error.message || "Failed to scan website");
 
