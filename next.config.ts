@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    // Puppeteer aur Chromium support ke liye ye block add karein
+    experimental: {
+        serverComponentsExternalPackages: [
+            "puppeteer-core",
+            "@sparticuz/chromium",
+        ],
+    },
 };
 
 export default nextConfig;

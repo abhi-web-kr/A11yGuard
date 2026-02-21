@@ -21,12 +21,12 @@ async function scanWebsite(url: string) {
             args: isProduction
                 ? chromium.args
                 : ["--no-sandbox", "--disable-setuid-sandbox"],
-            // chromium.defaultViewport ki jagah direct object de dein
             defaultViewport: { width: 1280, height: 720 },
             executablePath: isProduction
-                ? await chromium.executablePath()
+                ? await chromium.executablePath(
+                      `https://github.com/Sparticuz/chromium/releases/download/v143.0.0/chromium-v143.0.0-pack.tar`,
+                  )
                 : LOCAL_CHROME_PATH,
-            // chromium.headless ki jagah boolean use karein
             headless: isProduction ? true : true,
         });
 
