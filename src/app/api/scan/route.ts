@@ -23,7 +23,9 @@ async function scanWebsite(url: string) {
                 : ["--no-sandbox", "--disable-setuid-sandbox"],
             defaultViewport: { width: 1280, height: 720 },
             executablePath: isProduction
-                ? await chromium.executablePath() // Bina URL ke try karein
+                ? await chromium.executablePath(
+                      `https://github.com/Sparticuz/chromium/releases/download/v123.0.1/chromium-v123.0.1-pack.tar`,
+                  )
                 : LOCAL_CHROME_PATH,
             headless: isProduction ? true : true,
         });
