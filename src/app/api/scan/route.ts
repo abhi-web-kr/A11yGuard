@@ -4,7 +4,8 @@ import chromium from "@sparticuz/chromium";
 import puppeteer from "puppeteer-core";
 
 // Windows local path detect karne ke liye
-const LOCAL_CHROME_PATH = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"; 
+const LOCAL_CHROME_PATH =
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -12,16 +13,21 @@ async function scanWebsite(url: string) {
     let browser;
     try {
         const isProduction = process.env.NODE_ENV === "production";
-        console.log(`🚀 Launching browser in ${isProduction ? 'Production' : 'Development'} mode...`);
+        console.log(
+            `🚀 Launching browser in ${isProduction ? "Production" : "Development"} mode...`,
+        );
 
         browser = await puppeteer.launch({
-            args: isProduction ? chromium.args : ["--no-sandbox", "--disable-setuid-sandbox"],
-            defaultViewport: chromium.defaultViewport,
-            // AGAR Production hai toh sparticuz use karo, warna local chrome path
-            executablePath: isProduction 
-                ? await chromium.executablePath() 
-                : LOCAL_CHROME_PATH, 
-            headless: isProduction ? chromium.headless : true,
+            args: isProduction
+                ? chromium.args
+                : ["--no-sandbox", "--disable-setuid-sandbox"],
+            // chromium.defaultViewport ki jagah direct object de dein
+            defaultViewport: { width: 1280, height: 720 },
+            executablePath: isProduction
+                ? await chromium.executablePath()
+                : LOCAL_CHROME_PATH,
+            // chromium.headless ki jagah boolean use karein
+            headless: isProduction ? true : true,
         });
 
         console.log("✅ Browser launched successfully");
@@ -32,15 +38,23 @@ async function scanWebsite(url: string) {
         await page.goto(url, { waitUntil: "networkidle2" });
         console.log("✅ Page loaded");
 
-        const results = await new AxePuppeteer(page as any).analyze();
-        
+        // Isse TypeScript "Page" ki internal details check karna band kar dega
+        const results = await new AxePuppeteer(
+            page as unknown as any,
+        ).analyze();
+
         const issues = results.violations.map((v) => ({
             id: generateId(),
             category: "Accessibility",
             name: v.help,
             description: v.description,
-            severity: v.impact === "critical" || v.impact === "serious" ? "High" : "Medium",
-            affectedElements: v.nodes.map((node) => node.html.substring(0, 200)),
+            severity:
+                v.impact === "critical" || v.impact === "serious"
+                    ? "High"
+                    : "Medium",
+            affectedElements: v.nodes.map((node) =>
+                node.html.substring(0, 200),
+            ),
             remediation: `${v.help}. Check here: ${v.helpUrl}`,
         }));
 
@@ -68,11 +82,18 @@ async function scanWebsite(url: string) {
 export async function POST(request: NextRequest) {
     try {
         const { url } = await request.json();
-        if (!url) return NextResponse.json({ error: "URL is required" }, { status: 400 });
+        if (!url)
+            return NextResponse.json(
+                { error: "URL is required" },
+                { status: 400 },
+            );
 
         const result = await scanWebsite(url);
         return NextResponse.json(result);
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof Error ? error.message : "Failed to scan website";
+        console.error("❌ API Route Error:", error);
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
