@@ -1,45 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AxePuppeteer } from "@axe-core/puppeteer";
-import { getBrowserlessConnection } from "@/lib/browserless";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
-// Helper function to generate unique IDs
+// Windows local path detect karne ke liye
+const LOCAL_CHROME_PATH = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"; 
+
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
 async function scanWebsite(url: string) {
     let browser;
     try {
-        // 1. Connect to Browserless.io remote browser (serverless-friendly)
-        browser = await getBrowserlessConnection();
+        const isProduction = process.env.NODE_ENV === "production";
+        console.log(`🚀 Launching browser in ${isProduction ? 'Production' : 'Development'} mode...`);
 
+        browser = await puppeteer.launch({
+            args: isProduction ? chromium.args : ["--no-sandbox", "--disable-setuid-sandbox"],
+            defaultViewport: chromium.defaultViewport,
+            // AGAR Production hai toh sparticuz use karo, warna local chrome path
+            executablePath: isProduction 
+                ? await chromium.executablePath() 
+                : LOCAL_CHROME_PATH, 
+            headless: isProduction ? chromium.headless : true,
+        });
+
+        console.log("✅ Browser launched successfully");
         const page = await browser.newPage();
+        await page.setDefaultNavigationTimeout(60000);
 
-        // 2. Setting a timeout to ensure the script doesn't hang forever
-        await page.setDefaultNavigationTimeout(30000);
-
-        // 3. Navigate to the URL
+        console.log("🌐 Navigating to:", url);
         await page.goto(url, { waitUntil: "networkidle2" });
+        console.log("✅ Page loaded");
 
-        // 4. Run the Axe Expert Engine inside the page
-        type AxeTarget = ConstructorParameters<typeof AxePuppeteer>[0];
-        const results = await new AxePuppeteer(page as unknown as AxeTarget).analyze();
-
-        // 5. Transform Axe's complex results into your simple format
+        const results = await new AxePuppeteer(page as any).analyze();
+        
         const issues = results.violations.map((v) => ({
             id: generateId(),
             category: "Accessibility",
             name: v.help,
             description: v.description,
-            severity:
-                v.impact === "critical" || v.impact === "serious"
-                    ? "High"
-                    : "Medium",
-            affectedElements: v.nodes.map((node) =>
-                node.html.substring(0, 200),
-            ),
-            remediation: `${v.help}. Check here for fix: ${v.helpUrl}`,
+            severity: v.impact === "critical" || v.impact === "serious" ? "High" : "Medium",
+            affectedElements: v.nodes.map((node) => node.html.substring(0, 200)),
+            remediation: `${v.help}. Check here: ${v.helpUrl}`,
         }));
 
-        // Calculate severity counts
         const issuesBySeverity = {
             high: issues.filter((i) => i.severity === "High").length,
             medium: issues.filter((i) => i.severity === "Medium").length,
@@ -54,10 +58,8 @@ async function scanWebsite(url: string) {
             issues,
         };
     } catch (error) {
-        console.error("Puppeteer/Axe Error:", error);
-        throw new Error(
-            "Could not scan the website. It might be blocking automated tools or is offline.",
-        );
+        console.error("❌ Scan Error:", error);
+        throw error;
     } finally {
         if (browser) await browser.close();
     }
@@ -65,33 +67,12 @@ async function scanWebsite(url: string) {
 
 export async function POST(request: NextRequest) {
     try {
-        const body = await request.json();
-        const { url } = body;
-
-        if (!url) {
-            return NextResponse.json(
-                { error: "URL is required" },
-                { status: 400 },
-            );
-        }
-
-        // Basic URL validation
-        try {
-            new URL(url);
-        } catch {
-            return NextResponse.json(
-                { error: "Invalid URL format" },
-                { status: 400 },
-            );
-        }
+        const { url } = await request.json();
+        if (!url) return NextResponse.json({ error: "URL is required" }, { status: 400 });
 
         const result = await scanWebsite(url);
         return NextResponse.json(result);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-        return NextResponse.json(
-            { error: error.message || "Failed to scan website." },
-            { status: 500 },
-        );
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
