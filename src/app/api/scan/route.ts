@@ -15,11 +15,17 @@ async function scanWebsite(url: string) {
     try {
         const isProduction = process.env.NODE_ENV === "production";
         const hasBrowserlessToken = Boolean(process.env.BROWSERLESS_TOKEN);
+        const configuredPath = process.env.CHROME_EXECUTABLE_PATH;
+
+        if (isProduction && !hasBrowserlessToken && !configuredPath) {
+            throw new Error(
+                "Production scan configuration missing. Set BROWSERLESS_TOKEN (recommended on Render) or set CHROME_EXECUTABLE_PATH to a valid browser binary.",
+            );
+        }
 
         if (isProduction && hasBrowserlessToken) {
             browser = await getBrowserlessConnection();
         } else {
-            const configuredPath = process.env.CHROME_EXECUTABLE_PATH;
             const executablePath = configuredPath
                 ? configuredPath
                 : isProduction
