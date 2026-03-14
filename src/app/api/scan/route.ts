@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AxePuppeteer } from "@axe-core/puppeteer";
 import puppeteer from "puppeteer-core"; // Standard puppeteer use karein
+import { getBrowserlessConnection } from "@/lib/browserless";
 
 // Docker mein standard path yahi rehta hai
 const DOCKER_CHROME_PATH = "/usr/bin/google-chrome-stable";
@@ -13,22 +14,32 @@ async function scanWebsite(url: string) {
     let browser;
     try {
         const isProduction = process.env.NODE_ENV === "production";
+        const hasBrowserlessToken = Boolean(process.env.BROWSERLESS_TOKEN);
 
-        browser = await puppeteer.launch({
-            // Docker environment ke liye zaroori flags
-            args: [
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--single-process",
-                "--no-zygote",
-            ],
-            executablePath: isProduction
-                ? DOCKER_CHROME_PATH
-                : LOCAL_CHROME_PATH,
-            headless: true,
-        });
+        if (isProduction && hasBrowserlessToken) {
+            browser = await getBrowserlessConnection();
+        } else {
+            const configuredPath = process.env.CHROME_EXECUTABLE_PATH;
+            const executablePath = configuredPath
+                ? configuredPath
+                : isProduction
+                  ? DOCKER_CHROME_PATH
+                  : LOCAL_CHROME_PATH;
+
+            browser = await puppeteer.launch({
+                // Docker environment ke liye zaroori flags
+                args: [
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--single-process",
+                    "--no-zygote",
+                ],
+                executablePath,
+                headless: true,
+            });
+        }
 
         const page = await browser.newPage();
         await page.setDefaultNavigationTimeout(60000);
@@ -66,8 +77,20 @@ async function scanWebsite(url: string) {
             issuesBySeverity, // Aapki key ab safe hai
             issues,
         };
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("❌ Scan Error:", error);
+
+        if (
+            error instanceof Error &&
+            error.message.includes(
+                "Browser was not found at the configured executablePath",
+            )
+        ) {
+            throw new Error(
+                "Chrome binary not found on server. Set BROWSERLESS_TOKEN for production scanning or configure CHROME_EXECUTABLE_PATH to a valid browser binary.",
+            );
+        }
+
         throw error;
     } finally {
         if (browser) await browser.close();
@@ -83,7 +106,21 @@ export async function POST(request: NextRequest) {
                 { status: 400 },
             );
 
-        const result = await scanWebsite(url);
+        const normalizedUrl = /^https?:\/\//i.test(url)
+            ? url
+            : `https://${url}`;
+
+        try {
+            // Validate URL early so user gets a clear 400 instead of scan-time failure.
+            new URL(normalizedUrl);
+        } catch {
+            return NextResponse.json(
+                { error: "Please enter a valid URL" },
+                { status: 400 },
+            );
+        }
+
+        const result = await scanWebsite(normalizedUrl);
         return NextResponse.json(result);
     } catch (error: unknown) {
         const errorMessage =

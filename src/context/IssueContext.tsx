@@ -31,13 +31,16 @@ export const IssueProvider = ({ children }: { children: ReactNode }) => {
         setError(null);
         try {
             const result = await axios.post("/api/scan", { url });
-            setLoading(false);
             setResult(result.data);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            setError(error.message || "Failed to scan website");
+        } catch (error: unknown) {
+            const errorMessage = axios.isAxiosError(error)
+                ? (error.response?.data?.error as string) ||
+                  error.message ||
+                  "Failed to scan website"
+                : "Failed to scan website";
 
-            console.log(error);
+            setError(errorMessage);
+            throw new Error(errorMessage);
         } finally {
             setLoading(false);
         }

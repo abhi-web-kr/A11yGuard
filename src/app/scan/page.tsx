@@ -9,17 +9,24 @@ import toast from "react-hot-toast";
 const ScanPage = () => {
     const [websiteUrl, setWebsiteUrl] = useState("");
 
-    const { result, loading, handleWebsiteLink } =
-        useIssues();
+    const { result, loading, handleWebsiteLink } = useIssues();
 
     const handleScan = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!websiteUrl) return alert("Please enter a URL first!");
 
-        await handleWebsiteLink(websiteUrl);
-        toast.success("Scanned Successfully.")
-        setWebsiteUrl("");
+        try {
+            await handleWebsiteLink(websiteUrl);
+            toast.success("Scanned Successfully.");
+            setWebsiteUrl("");
+        } catch (error: unknown) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : "Scan failed. Please try again.";
+            toast.error(message);
+        }
     };
 
     return (
