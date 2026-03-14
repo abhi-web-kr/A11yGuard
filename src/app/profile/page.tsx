@@ -64,6 +64,7 @@ const scanHistory = [
 export default function ProfilePage() {
     const { data: session } = useSession();
     const { user, getUser } = useUser();
+    console.log(user);
 
     useEffect(() => {
         getUser();
@@ -72,6 +73,7 @@ export default function ProfilePage() {
     const displayName = user?.name || session?.user?.name || "User Name";
     const displayEmail =
         user?.email || session?.user?.email || "user@example.com";
+    
     const displayDate = user?.createdAt
         ? new Date(user.createdAt).toLocaleDateString("en-US", {
               month: "short",

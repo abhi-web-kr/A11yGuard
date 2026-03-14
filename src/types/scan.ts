@@ -26,7 +26,7 @@ export interface ScanResult {
 export interface ScanUser {
   _id?: string;
   name: string;
-  createdAt: Date;
+  createdAt: string | Date;
   email: string,
   image: string;
 }

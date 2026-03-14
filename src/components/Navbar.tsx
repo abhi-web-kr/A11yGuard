@@ -28,7 +28,7 @@ function Navbar() {
     ];
 
     return (
-        <nav className="bg-white dark:bg-slate-950 shadow-sm sticky top-0 z-50 transition-colors border-b border-slate-100 dark:border-slate-900">
+        <nav className="bg-white/60 dark:bg-slate-950/60 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-colors border-b border-slate-100/50 dark:border-slate-900/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
@@ -110,11 +110,7 @@ function Navbar() {
 
                                 {/* Dropdown Menu */}
                                 <div
-                                    className={`
-                    absolute top-full right-0 mt-2 w-48 
-                    bg-white dark:bg-slate-900 
-                    border border-slate-200 dark:border-slate-800 
-                    rounded-2xl shadow-xl overflow-hidden z-50
+                                    className={`absolute top-full right-0 mt-2 w-48  bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden z-50
                     transition-all duration-300 ease-in-out
                     ${isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"}
                 `}
@@ -132,7 +128,7 @@ function Navbar() {
 
                                         <button
                                             onClick={() => signOut()}
-                                            className="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors text-left"
+                                            className="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors text-left cursor-pointer"
                                         >
                                             <LogOut size={18} />
                                             <span className="font-bold text-sm">
@@ -176,22 +172,36 @@ function Navbar() {
                                 {link.name}
                             </Link>
                         ))}
-                        <div className="pt-4 flex flex-col gap-3 border-t border-slate-100 dark:border-slate-900 mt-4">
-                            <Link
-                                href="/login"
-                                onClick={() => setIsMenuOpen(false)}
-                                className="w-full text-center py-3 text-slate-700 dark:text-slate-300 font-bold"
+                        <hr className="w-full h-1 text-gray-200" />
+
+                        {data ? (
+                            <button
+                                onClick={() => signOut()}
+                                className="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors text-left cursor-pointer"
                             >
-                                Login
-                            </Link>
-                            <Link
-                                href="/register"
-                                onClick={() => setIsMenuOpen(false)}
-                                className="w-full text-center py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black shadow-xl"
-                            >
-                                Get Started
-                            </Link>
-                        </div>
+                                <LogOut size={18} />
+                                <span className="font-bold text-sm">
+                                    Logout
+                                </span>
+                            </button>
+                        ) : (
+                            <div className="pt-4 flex flex-col gap-3 border-t border-slate-100 dark:border-slate-900 mt-4">
+                                <Link
+                                    href="/login"
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="w-full text-center py-3 text-slate-700 dark:text-slate-300 font-bold"
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    href="/register"
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="w-full text-center py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black shadow-xl"
+                                >
+                                    Get Started
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

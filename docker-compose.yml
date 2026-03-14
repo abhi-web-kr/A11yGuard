@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env 
+    environment:
+      NODE_ENV: production 
+    ports:
+      - "3000:3000"
+    shm_size: "2gb"
+    init: true
+    restart: unless-stopped

@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AxePuppeteer } from "@axe-core/puppeteer";
-import chromium from "@sparticuz/chromium";
-import puppeteer from "puppeteer-core";
+import puppeteer from "puppeteer-core"; // Standard puppeteer use karein
 
-// Windows local path detect karne ke liye
+// Docker mein standard path yahi rehta hai
+const DOCKER_CHROME_PATH = "/usr/bin/google-chrome-stable";
 const LOCAL_CHROME_PATH =
     "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 
@@ -13,35 +13,29 @@ async function scanWebsite(url: string) {
     let browser;
     try {
         const isProduction = process.env.NODE_ENV === "production";
-        console.log(
-            `🚀 Launching browser in ${isProduction ? "Production" : "Development"} mode...`,
-        );
 
         browser = await puppeteer.launch({
-            args: isProduction
-                ? chromium.args
-                : ["--no-sandbox", "--disable-setuid-sandbox"],
-            defaultViewport: { width: 1280, height: 720 },
+            // Docker environment ke liye zaroori flags
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--single-process",
+                "--no-zygote",
+            ],
             executablePath: isProduction
-                ? await chromium.executablePath(
-                      `https://github.com/Sparticuz/chromium/releases/download/v123.0.1/chromium-v123.0.1-pack.tar`,
-                  )
+                ? DOCKER_CHROME_PATH
                 : LOCAL_CHROME_PATH,
-            headless: isProduction ? true : true,
+            headless: true,
         });
 
-        console.log("✅ Browser launched successfully");
         const page = await browser.newPage();
         await page.setDefaultNavigationTimeout(60000);
-
-        console.log("🌐 Navigating to:", url);
         await page.goto(url, { waitUntil: "networkidle2" });
-        console.log("✅ Page loaded");
 
-        // Isse TypeScript "Page" ki internal details check karna band kar dega
-        const results = await new AxePuppeteer(
-            page as unknown as any,
-        ).analyze();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const results = await new AxePuppeteer(page as any).analyze();
 
         const issues = results.violations.map((v) => ({
             id: generateId(),
@@ -58,6 +52,7 @@ async function scanWebsite(url: string) {
             remediation: `${v.help}. Check here: ${v.helpUrl}`,
         }));
 
+        // ✅ Missing Key: issuesBySeverity wapas add kar di hai
         const issuesBySeverity = {
             high: issues.filter((i) => i.severity === "High").length,
             medium: issues.filter((i) => i.severity === "Medium").length,
@@ -68,7 +63,7 @@ async function scanWebsite(url: string) {
             url,
             scannedAt: new Date().toISOString(),
             totalIssues: issues.length,
-            issuesBySeverity,
+            issuesBySeverity, // Aapki key ab safe hai
             issues,
         };
     } catch (error) {

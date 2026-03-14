@@ -9,11 +9,11 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-    // Puppeteer aur Chromium support ke liye ye block add karein
+    output: "standalone", // ✅ Required for Docker deployment
     experimental: {
         serverComponentsExternalPackages: [
             "puppeteer-core",
-            "@sparticuz/chromium",
+            "@axe-core/puppeteer",
         ],
     },
 };
