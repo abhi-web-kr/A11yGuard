@@ -1,6 +1,6 @@
 # A11yGuard
 
-A11yGuard is a Next.js web app that scans public websites for accessibility issues using axe-core and Puppeteer, then presents actionable results in a clean UI.
+A11yGuard is a high-performance, dockerized web application built with Next.js and Puppeteer. It empowers developers to scan public websites in real-time for accessibility gaps, leveraging the industry-standard axe-core engine to provide actionable, WCAG-compliant insights through a sleek and intuitive dashboard.
 
 ## What This Project Does Today
 
