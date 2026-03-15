@@ -46,7 +46,10 @@ const ScanPage = () => {
 
                 {/* Scan Form */}
                 <div className="flex flex-col justify-center items-center p-4 sm:p-6 rounded-2xl bg-white shadow-lg gap-2.5 dark:bg-gray-800">
-                    <div className="w-full max-w-4xl">
+                    <form
+                        onSubmit={handleScan}
+                        className="w-full max-w-4xl"
+                    >
                         <label
                             htmlFor="url-input"
                             className="block text-sm font-bold mb-2 ml-1"
@@ -58,19 +61,20 @@ const ScanPage = () => {
                             <input
                                 id="url-input"
                                 type="url"
+                                required
                                 placeholder="http://example.com/abhi"
-                                className="flex-1 p-3 sm:p-3 border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base "
+                                className="flex-1 p-3 sm:p-3 border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all text-sm sm:text-base dark:bg-zinc-900 dark:border-zinc-700"
                                 value={websiteUrl}
                                 onChange={(e) => setWebsiteUrl(e.target.value)}
                             />
                             <button
-                                className="text-white border-slate-900 bg-black dark:border-white dark:text-white px-8 py-3 rounded-2xl font-semibold hover:text-white hover:bg-emerald-600 dark:hover:bg-emerald-600 dark:hover:text-slate-900  shadow-xl cursor-pointer"
-                                onClick={handleScan}
+                                type="submit"
+                                className="text-white border-slate-900 bg-black dark:border-white dark:text-white px-8 py-3 rounded-2xl font-semibold hover:text-white hover:bg-emerald-600 dark:hover:bg-emerald-600 dark:hover:text-slate-900 shadow-xl cursor-pointer transition-colors"
                             >
                                 Scan Now
                             </button>
                         </div>
-                    </div>
+                    </form>
 
                     {loading ? <LoadingPage /> : result && <ScanSummary />}
                 </div>
