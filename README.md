@@ -2,6 +2,8 @@
 
 **A11yGuard** is a modern web accessibility scanning platform built with Next.js 15, designed to help developers identify and fix accessibility issues on their websites. Scan any website for WCAG compliance and get detailed reports on accessibility violations.
 
+![A11yGuard](./public/a11gaurd.png)
+
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8)

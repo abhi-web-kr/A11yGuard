@@ -106,7 +106,7 @@ const ScanPage = () => {
                     </div>
 
                     {/* Key Benefits */}
-                    <div className="bg-gradient-to-r from-gray-800 to-green-900 rounded-2xl p-5 sm:p-8 text-white shadow-xl">
+                    <div className="bg-linear-to-r from-gray-800 to-green-900 rounded-2xl p-5 sm:p-8 text-white shadow-xl">
                         <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
                             Why Scan Your Website?
                         </h3>
