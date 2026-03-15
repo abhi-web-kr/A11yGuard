@@ -21,7 +21,7 @@ const Footer = () => {
                         </p>
                         <div className="flex gap-4 pt-2">
                             <a
-                                href="#"
+                                href="https://github.com/abhi-web-kr/A11yGuard"
                                 className="text-slate-400 hover:text-emerald-500 transition-colors"
                             >
                                 <Github size={20} />
@@ -65,7 +65,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    href="/about"
+                                    href="/guidelines"
                                     className="hover:text-white transition-colors"
                                 >
                                     Documentation
@@ -98,7 +98,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="https://github.com/abhi-web-kr/A11yGuard"
                                     className="hover:text-white transition-colors"
                                 >
                                     Open Source

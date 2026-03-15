@@ -74,7 +74,8 @@ This project taught me valuable skills in full-stack web development:
 
 - 🔍 **Website Accessibility Scanning** - Scan any public website for accessibility issues
 - 📊 **Detailed Reports** - Get comprehensive reports with issue breakdowns by severity
-- 👤 **User Authentication** - Secure authentication with NextAuth.js (Credentials & Google OAuth)
+- � **Guidelines Page** - Curated accessibility resources including WCAG checklists, contrast checker, WAVE extension, and screen reader guides
+- �👤 **User Authentication** - Secure authentication with NextAuth.js (Credentials & Google OAuth)
 - 📱 **Responsive Design** - Beautiful UI that works on all devices
 - 🌙 **Dark Mode** - Full dark mode support with theme persistence
 - 📂 **Scan History** - Track all your previous scans (coming soon)
@@ -221,6 +222,7 @@ src/
       user/
     about/
     contact/
+    guidelines/
     login/
     profile/
     register/

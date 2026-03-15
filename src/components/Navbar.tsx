@@ -21,10 +21,9 @@ function Navbar() {
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "Scan", href: "/scan" },
+        { name: "Guidelines", href: "/guidelines" },
         { name: "About", href: "/about" },
-        { name: "Services", href: "/services" },
-        { name: "Contact", href: "/contact" },
-        { name: "Profile", href: "/profile" },
+        { name: "Services", href: "/services" }
     ];
 
     return (

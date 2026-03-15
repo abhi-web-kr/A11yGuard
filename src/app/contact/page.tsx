@@ -102,7 +102,7 @@ export default function ContactPage() {
                                         type="text"
                                         required
                                         className="w-full p-4 bg-slate-50 dark:bg-gray-700 border border-slate-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-600 transition-all text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-                                        placeholder="John Doe"
+                                        placeholder="Ankit raj"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -113,7 +113,7 @@ export default function ContactPage() {
                                         type="email"
                                         required
                                         className="w-full p-4 bg-slate-50 dark:bg-gray-700 border border-slate-200 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-600 transition-all text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-                                        placeholder="john@example.com"
+                                        placeholder="ankit@example.com"
                                     />
                                 </div>
                             </div>
