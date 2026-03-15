@@ -42,11 +42,11 @@ This project taught me valuable skills in full-stack web development:
 
 ### **DevOps & Deployment**
 
-- ✅ Serverless deployment considerations (Vercel)
-- ✅ Working with remote browser services (Browserless.io)
-- ✅ Environment-specific configurations
-- ✅ Understanding serverless vs. traditional hosting (Render, Railway)
-- ✅ Managing API keys and secrets securely
+- ✅ Dockerizing a Next.js application for production deployment
+- ✅ Deploying the application on Render using Docker
+- ✅ Configuring environment variables and runtime settings on Render
+- ✅ Integrating Browserless.io for reliable remote browser-based scanning
+- ✅ Managing deployment secrets and API keys securely in hosted environments
 
 ### **Tools & Libraries**
 
@@ -67,34 +67,6 @@ This project taught me valuable skills in full-stack web development:
 - [ ] **Export Reports as PDF** - Allow users to download detailed PDF reports
 - [ ] **Issue Tracking Dashboard** - Track issues over time with charts and trends
 - [ ] **Email Notifications** - Send scan completion notifications via email
-
-### **Medium Priority**
-
-- [ ] **Scheduled Scans** - Set up automated recurring scans for websites
-- [ ] **Comparative Analytics** - Show improvements/regressions between scans
-- [ ] **Issue Categories** - Group issues by category (Images, Forms, Navigation, etc.)
-- [ ] **Remediation Guides** - Detailed step-by-step fixes for each issue type
-- [ ] **Team Collaboration** - Share scans with team members
-- [ ] **API Rate Limiting** - Implement rate limiting to prevent abuse
-
-### **Nice to Have**
-
-- [ ] **Lighthouse Integration** - Add performance, SEO, and best practices scores
-- [ ] **Custom Rules** - Allow users to define custom accessibility rules
-- [ ] **Browser Extensions** - Chrome/Firefox extensions for quick scans
-- [ ] **Webhooks** - Trigger scans via webhooks for CI/CD integration
-- [ ] **Multi-page Scanning** - Scan entire websites (all pages)
-- [ ] **Screenshot Annotations** - Highlight issues directly on screenshots
-- [ ] **Public Scan Results** - Share scan results via public links
-
-### **Technical Improvements**
-
-- [ ] **Caching Strategy** - Cache scan results to reduce API calls
-- [ ] **Queue System** - Background job queue for long-running scans
-- [ ] **WebSocket Updates** - Real-time scan progress updates
-- [ ] **Test Coverage** - Unit and integration tests
-- [ ] **Database Indexing** - Optimize MongoDB queries with proper indexes
-- [ ] **Error Monitoring** - Integrate Sentry or similar for error tracking
 
 ---
 
