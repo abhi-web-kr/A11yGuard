@@ -1,58 +1,145 @@
-# A11yGuard
+# 🛡️ A11yGuard
 
-![A11yGuard](./public/a11gaurd.png)
+**A11yGuard** is a modern web accessibility scanning platform built with Next.js 15, designed to help developers identify and fix accessibility issues on their websites. Scan any website for WCAG compliance and get detailed reports on accessibility violations.
 
-A11yGuard is a high-performance, dockerized web application built with Next.js and Puppeteer. It empowers developers to scan public websites in real-time for accessibility gaps, leveraging the industry-standard axe-core engine to provide actionable, WCAG-compliant insights through a sleek and intuitive dashboard.
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
 
-## What This Project Does Today
+---
 
-- Scans a target URL for accessibility violations using `@axe-core/puppeteer`
-- Returns structured scan results with issue details and severity summary
-- Supports user authentication with NextAuth
-- Supports both email/password login and Google OAuth login
-- Protects private pages using middleware-style route checks
-- Lets authenticated users view and update their profile
-- Supports profile image upload to Cloudinary
-- Includes responsive pages for Home, About, Services, Contact, Scan, Login, Register, and Profile
-- Supports light/dark theme toggle
+## 📚 What I Learned Building This Project
 
-## Tech Stack
+This project taught me valuable skills in full-stack web development:
 
-- Framework: Next.js 16 (App Router)
-- Language: TypeScript
-- UI: React 19 + Tailwind CSS 4
-- Authentication: NextAuth
-- Database: MongoDB + Mongoose
-- Accessibility scanning: axe-core + puppeteer-core
-- File upload: Cloudinary
-- Notifications: react-hot-toast
+### **Backend & APIs**
 
-## Main Routes
+- ✅ Building RESTful APIs with Next.js 15 App Router
+- ✅ Server-side authentication with NextAuth.js (Credentials + OAuth)
+- ✅ MongoDB integration with Mongoose ODM
+- ✅ File uploads to cloud storage (Cloudinary)
+- ✅ API error handling and validation
+- ✅ Environment variable management for security
 
-### App Pages
+### **Frontend & UI/UX**
 
-- `/`
-- `/about`
-- `/services`
-- `/contact`
-- `/scan`
-- `/login`
-- `/register`
-- `/profile`
-- `/profile/edit`
-- `/scan/issue`
+- ✅ React Server Components (RSC) and Client Components
+- ✅ TypeScript for type-safe development
+- ✅ TailwindCSS for responsive design
+- ✅ Dark mode implementation with next-themes
+- ✅ Context API for global state management
+- ✅ Protected routes with middleware
 
-### API Routes
+### **Web Accessibility**
 
-- `POST /api/scan` - Run accessibility scan for a URL
-- `POST /api/auth/register` - Register a new user with email/password
-- `GET /api/user` - Get authenticated user profile
-- `POST /api/user/update` - Update profile data and image
-- `GET/POST /api/auth/[...nextauth]` - NextAuth handler
+- ✅ Running accessibility audits with Axe-core
+- ✅ Understanding WCAG compliance levels
+- ✅ Parsing and displaying accessibility violations
+- ✅ Identifying critical vs. minor issues
 
-## Setup
+### **DevOps & Deployment**
 
-### 1. Install dependencies
+- ✅ Serverless deployment considerations (Vercel)
+- ✅ Working with remote browser services (Browserless.io)
+- ✅ Environment-specific configurations
+- ✅ Understanding serverless vs. traditional hosting (Render, Railway)
+- ✅ Managing API keys and secrets securely
+
+### **Tools & Libraries**
+
+- ✅ Puppeteer for browser automation
+- ✅ Axe-core for accessibility testing
+- ✅ NextAuth for authentication
+- ✅ Hot Toast for notifications
+- ✅ Git version control
+
+---
+
+## 🎯 Next Features to Implement
+
+### **High Priority**
+
+- [ ] **Save Scan Results to Database** - Store scan history in MongoDB with user association
+- [ ] **Scan History Page** - Display all previous scans with filters and search
+- [ ] **Export Reports as PDF** - Allow users to download detailed PDF reports
+- [ ] **Issue Tracking Dashboard** - Track issues over time with charts and trends
+- [ ] **Email Notifications** - Send scan completion notifications via email
+
+### **Medium Priority**
+
+- [ ] **Scheduled Scans** - Set up automated recurring scans for websites
+- [ ] **Comparative Analytics** - Show improvements/regressions between scans
+- [ ] **Issue Categories** - Group issues by category (Images, Forms, Navigation, etc.)
+- [ ] **Remediation Guides** - Detailed step-by-step fixes for each issue type
+- [ ] **Team Collaboration** - Share scans with team members
+- [ ] **API Rate Limiting** - Implement rate limiting to prevent abuse
+
+### **Nice to Have**
+
+- [ ] **Lighthouse Integration** - Add performance, SEO, and best practices scores
+- [ ] **Custom Rules** - Allow users to define custom accessibility rules
+- [ ] **Browser Extensions** - Chrome/Firefox extensions for quick scans
+- [ ] **Webhooks** - Trigger scans via webhooks for CI/CD integration
+- [ ] **Multi-page Scanning** - Scan entire websites (all pages)
+- [ ] **Screenshot Annotations** - Highlight issues directly on screenshots
+- [ ] **Public Scan Results** - Share scan results via public links
+
+### **Technical Improvements**
+
+- [ ] **Caching Strategy** - Cache scan results to reduce API calls
+- [ ] **Queue System** - Background job queue for long-running scans
+- [ ] **WebSocket Updates** - Real-time scan progress updates
+- [ ] **Test Coverage** - Unit and integration tests
+- [ ] **Database Indexing** - Optimize MongoDB queries with proper indexes
+- [ ] **Error Monitoring** - Integrate Sentry or similar for error tracking
+
+---
+
+## ✨ Features
+
+- 🔍 **Website Accessibility Scanning** - Scan any public website for accessibility issues
+- 📊 **Detailed Reports** - Get comprehensive reports with issue breakdowns by severity
+- 👤 **User Authentication** - Secure authentication with NextAuth.js (Credentials & Google OAuth)
+- 📱 **Responsive Design** - Beautiful UI that works on all devices
+- 🌙 **Dark Mode** - Full dark mode support with theme persistence
+- 📂 **Scan History** - Track all your previous scans (coming soon)
+- 🖼️ **Image Upload** - Upload profile pictures via Cloudinary
+- 🔒 **Protected Routes** - Middleware-based authentication for sensitive pages
+
+## 🚀 Tech Stack
+
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [TailwindCSS](https://tailwindcss.com/)
+- **Database:** [MongoDB](https://www.mongodb.com/) with Mongoose
+- **Authentication:** [NextAuth.js v5](https://next-auth.js.org/)
+- **File Upload:** [Cloudinary](https://cloudinary.com/)
+- **Accessibility Engine:** [Axe-core](https://github.com/dequelabs/axe-core)
+- **Headless Browser:** [Browserless.io](https://browserless.io/) (serverless Puppeteer)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **HTTP Client:** [Axios](https://axios-http.com/)
+
+## 📦 Installation
+
+### Prerequisites
+
+- Node.js 18+ and npm/yarn/pnpm
+- MongoDB Atlas account (or local MongoDB)
+- Cloudinary account
+- Google OAuth credentials (optional)
+
+### Steps
+
+1. **Clone the repository**
+
+    ```bash
+    git clone https://github.com/yourusername/a11yguard.git
+    cd a11yguard
+
+    ```
+
+2. **Install dependencies**
 
 ```bash
 npm install
